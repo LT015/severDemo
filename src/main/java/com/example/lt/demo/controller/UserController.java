@@ -8,10 +8,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -20,6 +23,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @ResponseBody
     @GetMapping("/get")
@@ -31,8 +37,7 @@ public class UserController {
             @ApiResponse(code=104,message = "请求路径不存在"),
             @ApiResponse(code=105,message = "服务器内部错误"),
     })
-    public UserDto getUserById(HttpServletRequest request,
-                               @RequestParam(value = "userId", required = false) int userId){
+    public UserDto getUserById(@RequestParam(value = "userId", required = false) int userId){
         UserDto userDto = userService.getUserInfo(userId);
         return userDto;
     }
@@ -44,5 +49,16 @@ public class UserController {
         return userService.getUserList();
     }
 
+    @GetMapping("/getRedis")
+    @ResponseBody
+    public String getRedisTest(){
+        ValueOperations valueOperations = redisTemplate.opsForValue();
+        valueOperations.set("first","hellow word");
+        redisTemplate.boundSetOps("nameset").add("曹操");
+        redisTemplate.boundSetOps("nameset").add("刘备");
+        redisTemplate.boundSetOps("nameset").add("孙权");
+        Set members = redisTemplate.boundSetOps("nameset").members();
+        return valueOperations.get("first").toString();
+    }
 
 }

@@ -49,6 +49,15 @@ spring:
           starttls:
             enable: true
             required: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 32
+        max-active: 10000
+        max-wait: 10000ms
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
