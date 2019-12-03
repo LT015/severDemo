@@ -69,4 +69,8 @@ pagehelper:
 
 logging:
   config: classpath:logback-spring.xml
+image:
+  save:
+    path: d:/SeverProject/images/demo/
+  sonImgPath: /images/
 

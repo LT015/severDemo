@@ -8,11 +8,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +24,9 @@ import java.util.Set;
 @RequestMapping("/user")
 @Api(value = "我的User层",description = "用户操作api")
 public class UserController {
+
+    @Value("${image.save.path}")
+    private String imageSavePath;
 
     @Autowired
     UserService userService;
@@ -61,4 +68,20 @@ public class UserController {
         return valueOperations.get("first").toString();
     }
 
+    @ResponseBody
+    @PostMapping("/update/image")
+    public String updateImage(@RequestParam MultipartFile file){
+
+        String originalFilename = file.getOriginalFilename();
+        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+        //String fileName = stuId + suffix;
+        File newFile = new File(imageSavePath+suffix);
+        try {
+            file.transferTo(newFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
 }
