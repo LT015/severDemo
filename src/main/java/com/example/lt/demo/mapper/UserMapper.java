@@ -15,4 +15,6 @@ public interface UserMapper {
     UserDto findUser(@Param("userId") Integer userId);
 
     void insert(User user);
+
+    String findPasswordByUserId(String userId);
 }

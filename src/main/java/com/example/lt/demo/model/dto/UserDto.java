@@ -5,8 +5,10 @@ import lombok.*;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
-    private Integer userId;
+    private String userId;
 
     private String userName;
 
