@@ -58,6 +58,12 @@ spring:
         max-idle: 32
         max-active: 10000
         max-wait: 10000ms
+  thymeleaf:
+    servlet:
+      content-type: text/html
+    cache: false
+    mode: LEGACYHTML%
+    encoding: UTF-8
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
