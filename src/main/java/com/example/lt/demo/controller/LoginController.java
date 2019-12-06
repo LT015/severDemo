@@ -30,23 +30,6 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-//    @PostMapping("/pwd")
-//    @ResponseBody
-//    public ResponseData login(HttpServletResponse response,@RequestParam("userId") String userId, @RequestParam("password") String password) {
-//        if (loginService.checkUser(userId, password)) {
-//            String sessionId = UUID.randomUUID().toString();
-//            Cookie cookie = new Cookie("TJUFE-SESSION-ID", sessionId);
-//            cookie.setMaxAge(7 * 24 * 60 * 60);
-//            cookie.setPath("/");
-//            response.addCookie(cookie);
-//            stringRedisTemplate.opsForValue().set(sessionId, userId, 7, TimeUnit.DAYS);
-//            UserDto userDto = new UserDto("1001","张三");
-//            return ResponseData.success(userDto);
-//        }
-//
-//        return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);
-//    }
-
     @PostMapping("/login/pwd")
     @ResponseBody
     public ResponseData login(HttpServletRequest request,HttpServletResponse response,@RequestParam("userId") String userId, @RequestParam("password") String password) {

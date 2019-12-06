@@ -36,7 +36,7 @@ spring:
   profiles:
     active: dev
   swagger:
-    enable: true
+    enable: false
   mail:
     host: smtp.163.com
     username: lt17694804829@163.com
@@ -75,6 +75,7 @@ pagehelper:
 
 logging:
   config: classpath:logback-spring.xml
+
 image:
   save:
     path: d:/SeverProject/images/demo/

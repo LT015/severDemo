@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 //@ServletComponentScan
-@EnableSwagger2
 @EnableRedisHttpSession
 class DemoApplication  {//extends SpringBootServletInitializer
 

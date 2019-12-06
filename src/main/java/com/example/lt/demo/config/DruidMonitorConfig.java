@@ -12,11 +12,17 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 /*
     application上不使用ServletComponentScan注解时，需要有这个类来注册servlet和filter
+
+    Druid框架需要两个部分 servlet 和 filter 在这个包下的另外两个文件DruidStatFilter和DruidStatViewServlet分别完成了这两部分，
+    是通过@WebFilter注解和@WebServlet注解标注的，如果启动类上加了@ServletComponentScan注解，就会自动装配这两个类来完成Druid的配置，这算自动装配。
+    当然了，还需要DruidDataSourceConfig来导入Druid的属性。
+    第二种方式就是启动类不加@ServletComponentScan注解，这时需要写个类把Druid需要的WebStatFilter和StatViewServlet装配进来，就是当前类，类的开头有个@SpringBootConfiguration，
+    来让spring装配这个类，用@Bean把需要的东西注入框架，这算手动完成配置。By the way 配置方方式除了这两种还有读取xml文件的方式，这种方式需要在yml文件中指定该xml文件的位置才行。
  */
 @SpringBootConfiguration
 public class DruidMonitorConfig {
 
-    //private static final Logger logger = LoggerFactory.getLogger(DruidMonitorConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(DruidMonitorConfig.class);
 
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {

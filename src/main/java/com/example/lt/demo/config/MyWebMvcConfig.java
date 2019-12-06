@@ -2,6 +2,8 @@ package com.example.lt.demo.config;
 
 import com.example.lt.demo.util.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,6 +19,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     @Value("${image.sonImgPath}")
     String sonImgPath;
 
+    //静态资源重定向
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // addResourceLocations指的是文件放置的目录，addResoureHandler指的是对外暴露的访问路径
@@ -28,8 +31,8 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         InterceptorRegistration ir=registry.addInterceptor(new LoginInterceptor());
-        ir.addPathPatterns("/**");
-        ir.excludePathPatterns("/login/**","/js/**","/html/**","/images/**","/css/**");
+        ir.addPathPatterns("/isValid");
+        //ir.excludePathPatterns("/login/**","/js/**","/html/**","/images/**","/css/**");
     }
 
 }

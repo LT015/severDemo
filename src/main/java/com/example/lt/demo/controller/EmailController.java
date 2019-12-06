@@ -5,6 +5,7 @@ import com.example.lt.demo.util.JmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class EmailController {
      *
      * @return 发送结果
      */
-    @RequestMapping("/sendSimpleEmail")
+    @PostMapping("/sendSimpleEmail")
     public String sendSimpleEmail() {
         SimpleMailMessage message = new SimpleMailMessage();
         // 接收地址
@@ -38,7 +39,7 @@ public class EmailController {
      * 发送HTML格式内容的邮件
      * @return 发送结果
      */
-    @RequestMapping("/sendHtmlEmail")
+    @PostMapping("/sendHtmlEmail")
     public String sendHtmlEmail() {
         // 接收地址
         String toAddress = "1342436308@qq.com";
@@ -53,7 +54,7 @@ public class EmailController {
      *发送带附件的邮件
      * @return 发送结果
      */
-    @RequestMapping("/sendAttachmentsMail")
+    @PostMapping("/sendAttachmentsMail")
     public String sendAttachmentsMail() {
         // 接收地址
         String toAddress = "1342436308@qq.com";
@@ -70,7 +71,7 @@ public class EmailController {
      * 发送带静态资源的邮件
      * @return 发送结果
      */
-    @RequestMapping("/sendInlineMail")
+    @PostMapping("/sendInlineMail")
     public String sendInlineMail() {
         // 接收地址
         String toAddress = "1342436308@qq.com";
@@ -91,7 +92,7 @@ public class EmailController {
      * @return 发送结果
      */
     @ResponseBody
-    @RequestMapping("/sendTemplateEmail")
+    @PostMapping("/sendTemplateEmail")
     public String sendTemplateEmail(String code) {
         //接收地址
         String toAddress = "1342436308@qq.com";
