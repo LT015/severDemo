@@ -118,6 +118,11 @@ public class QueryBuilder<T> {
         return this;
     }
 
+    public QueryBuilder<T> setDistinct(boolean distinct) {
+        example.setDistinct(distinct);
+        return this;
+    }
+
     public List<T> list() {
         return mapper.selectByExample(example);
     }
