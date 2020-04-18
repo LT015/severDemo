@@ -3,6 +3,7 @@ package com.example.lt.demo.controller;
 
 import com.example.lt.demo.model.dto.UserDto;
 import com.example.lt.demo.service.LoginService;
+import com.example.lt.demo.service.UserService;
 import com.example.lt.demo.util.PubUtil;
 import com.example.lt.demo.util.ResponseCode;
 import com.example.lt.demo.util.ResponseData;
@@ -28,7 +29,10 @@ public class LoginController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    LoginService loginService;
+    private LoginService loginService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/login/pwd")
     @ResponseBody
@@ -37,8 +41,7 @@ public class LoginController {
             /*如果已经存在Session的话，直接返回它；没有就创建一个，再返回
              * 当然Session是自动放在response中的Header中的，这里不用做其他处理*/
             request.getSession().setAttribute("username", "admin");
-            UserDto userDto = new UserDto("1001","张三");
-            return ResponseData.success(userDto);
+            return ResponseData.success(  userService.getUserInfo(userId));
         }
 
         return ResponseData.fail(ResponseCode.FAIL, ResponseMsg.LOGIN_FAIL);

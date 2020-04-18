@@ -1,20 +1,20 @@
 package com.example.lt.demo.mapper;
 
 import com.example.lt.demo.model.User;
-import com.example.lt.demo.model.dto.UserDto;
+import com.example.lt.framework.general.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
+    int deleteByPrimaryKey(String userId);
 
-    List<UserDto> selectAll();
+    int insert(User record);
 
-    UserDto findUser(@Param("userId") Integer userId);
+    User selectByPrimaryKey(String userId);
 
-    void insert(User user);
+    List<User> selectAll();
 
-    String findPasswordByUserId(String userId);
+    int updateByPrimaryKey(User record);
 }

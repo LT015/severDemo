@@ -18,6 +18,13 @@ import org.springframework.context.annotation.Bean;
     当然了，还需要DruidDataSourceConfig来导入Druid的属性。
     第二种方式就是启动类不加@ServletComponentScan注解，这时需要写个类把Druid需要的WebStatFilter和StatViewServlet装配进来，就是当前类，类的开头有个@SpringBootConfiguration，
     来让spring装配这个类，用@Bean把需要的东西注入框架，这算手动完成配置。By the way 配置方方式除了这两种还有读取xml文件的方式，这种方式需要在yml文件中指定该xml文件的位置才行。
+
+    @Bean把类交给spring管理后，可以用@Autowired来快速得到实例，或者说可以用@Autowired来得到所有spring管理的类的一个实例。
+    以这个类举例，当别的地方调用
+    @Autowired
+    ServletRegistrationBean servletRegistrationBean;  的时候，实际上执行的是servletRegistrationBean() 方法来得到一个servletRegistrationBean实例，也就是调用构造方法，
+    说是构造方法可能不是很准确，因为这个函数名可以任意取，而构造方法是必须和类同名，总之是通过这个可以得到类实例的方法来实现@Autowired注入的。
+    记录这个主要是因为刚接触spring 不知道为啥spring可以吧别的类用@Autowired注入进来得到实例的，原来是调用了构造方法。
  */
 @SpringBootConfiguration
 public class DruidMonitorConfig {

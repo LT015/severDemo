@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/user")
@@ -44,7 +44,7 @@ public class UserController {
             @ApiResponse(code=104,message = "请求路径不存在"),
             @ApiResponse(code=105,message = "服务器内部错误"),
     })
-    public UserDto getUserById(@RequestParam(value = "userId", required = false) int userId){
+    public UserDto getUserById(@RequestParam(value = "userId", required = false) String userId){
         UserDto userDto = userService.getUserInfo(userId);
         return userDto;
     }
@@ -72,10 +72,10 @@ public class UserController {
     @PostMapping("/update/image")
     public String updateImage(@RequestParam MultipartFile file){
 
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename(); //file.getOriginalFilename()是得到上传时的文件名
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
         //String fileName = stuId + suffix;
-        File newFile = new File(imageSavePath+suffix);
+        File newFile = new File(imageSavePath + suffix);
         try {
             file.transferTo(newFile);
         } catch (IOException e) {

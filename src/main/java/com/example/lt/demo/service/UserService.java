@@ -12,7 +12,7 @@ public interface UserService {
      * @param userId 用户id
      * @return 用户信息
      */
-    UserDto getUserInfo(int userId);
+    UserDto getUserInfo(String userId);
 
     List<UserDto> getUserList();
 
